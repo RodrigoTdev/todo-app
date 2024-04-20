@@ -1,32 +1,26 @@
-body,
-#root {
-  background-color: black;
-  color: white;
-  width: 100dvw;
-  height: 100dvh;
+.app {
+  display: flex;
 }
 
 .container {
   display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  margin: 10px;
 }
 
-.container-box {
-  border: 2px solid white;
-  border-radius: 5px;
-  width: 200px;
-  padding: 10px;
-}
-
-.box {
-  margin: 5px;
-  padding: 10px;
-  background-color: lightgray;
-  color: black;
-  cursor: pointer;
-}
-
-.box:hover {
-  background-color: gray;
+.item {
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border: 1px solid #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: move;
 }
