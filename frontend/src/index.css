@@ -1,0 +1,32 @@
+body,
+#root {
+  background-color: black;
+  color: white;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+}
+
+.container-box {
+  border: 2px solid white;
+  border-radius: 5px;
+  width: 200px;
+  padding: 10px;
+}
+
+.box {
+  margin: 5px;
+  padding: 10px;
+  background-color: lightgray;
+  color: black;
+  cursor: pointer;
+}
+
+.box:hover {
+  background-color: gray;
+}
