@@ -1,67 +1,22 @@
 import React, { useState } from 'react'
+import { DragAndDrop } from './components/DragAndDrop'
 
 const App = () => {
   const [containers, setContainers] = useState([
-    { id: 'container1', elements: ['item1', 'item2', 'item3'] },
-    { id: 'container2', elements: [] },
-    { id: 'container3', elements: [] },
+    { id: 'TODO', elements: ['item1', 'item2', 'item3'] },
+    { id: 'IN PROGRESS', elements: [] },
+    { id: 'DONE', elements: [] },
   ])
 
-  const [draggedItem, setDraggedItem] = useState(null)
-  const [dragOverContainer, setDragOverContainer] = useState(null)
-
-  const handleDragStart = (event, item) => {
-    // event.preventDefault()
-    setDraggedItem(item)
-  }
-
-  const handleDragOver = (event, container) => {
-    event.preventDefault()
-    setDragOverContainer(container)
-  }
-
-  const handleDrop = () => {
-    if (draggedItem && dragOverContainer) {
-      const newContainers = [...containers]
-      const draggedContainer = newContainers.find((c) =>
-        c.elements.includes(draggedItem)
-      )
-      const droppedContainer = newContainers.find(
-        (c) => c.id === dragOverContainer
-      )
-
-      draggedContainer.elements = draggedContainer.elements.filter(
-        (item) => item !== draggedItem
-      )
-      droppedContainer.elements.push(draggedItem)
-
-      setContainers(newContainers)
-      setDraggedItem(null)
-      setDragOverContainer(null)
-    }
-  }
+  console.log(containers, 'containers')
 
   return (
     <div className='app'>
-      {containers.map((container) => (
-        <div
-          className='container'
-          key={container.id}
-          onDrop={handleDrop}
-          onDragOver={(event) => handleDragOver(event, container.id)}
-        >
-          {container.elements.map((item) => (
-            <div
-              className='item'
-              key={item}
-              draggable
-              onDragStart={(event) => handleDragStart(event, item)}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      ))}
+      <h1>TODO APP</h1>
+      <DragAndDrop
+        containers={containers}
+        setContainers={setContainers}
+      />
     </div>
   )
 }
