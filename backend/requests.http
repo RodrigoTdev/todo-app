@@ -1,0 +1,41 @@
+### POST
+POST http://localhost:3012/api/data
+content-type: application/json
+
+{"title": "Todo 3", "data": [
+  {
+    "id": 0,
+    "title": "TODO",
+    "data": [
+      {
+        "id": 0,
+        "task": "Estilar proyecto"
+      },
+      {
+        "id": 1,
+        "task": "Subir proyecto"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "IN PROGRESS",
+    "data": [
+      {
+        "id": 0,
+        "task": "Iniciar proyecto"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "DONE",
+    "data": [
+      {
+        "id": 0,
+        "task": "Crear proyecto"
+      }
+    ]
+  }
+]}
+

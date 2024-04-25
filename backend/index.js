@@ -19,12 +19,11 @@ db.once('open', () => {
 
 // Define a Mongoose schema and model
 const Schema = mongoose.Schema
-const dataSchema = new Schema([
-  {
-    title: String,
-    data: Array,
-  },
-])
+const dataSchema = new Schema({
+  title: { type: String, required: true },
+  data: { type: Array, required: true },
+  date: { type: String, default: new Date().toLocaleString() },
+})
 const DataModel = mongoose.model('DataModel', dataSchema, 'data')
 
 app.get('/api/data', async (req, res) => {
@@ -37,9 +36,10 @@ app.get('/api/data', async (req, res) => {
 })
 
 app.post('/api/data', async (req, res) => {
-  // TODO - Arreglar porque solo cambia el primer documento
   const { title, data } = req.body
+
   const newData = new DataModel({ title, data })
+  console.log(newData)
   try {
     const savedData = await newData.save()
     res.json(savedData)
@@ -48,14 +48,8 @@ app.post('/api/data', async (req, res) => {
   }
 })
 
-app.put('/api/data', async (req, res) => {
-  const [{ title, data }, { title1, data1 }, { title2, data2 }] = req.body
-  const newData = new DataModel([
-    { title, data },
-    { title1, data1 },
-    { title2, data2 },
-  ])
-  console.log(newData)
+app.put('/api/projects', async (req, res) => {
+  // TODO: Editar lista de proyectos
 })
 
 app.listen(process.env.PORT, () => {
