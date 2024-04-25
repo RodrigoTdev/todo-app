@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 export const DragAndDrop = ({ containers, setContainers }) => {
   const [draggedItem, setDraggedItem] = useState(null)
   const [dragOverContainer, setDragOverContainer] = useState(null)
+  console.log('containers', containers)
 
   const handleDragStart = (event, item) => {
     // event.preventDefault()
@@ -18,16 +19,18 @@ export const DragAndDrop = ({ containers, setContainers }) => {
     if (draggedItem && dragOverContainer) {
       const newContainers = [...containers]
       const draggedContainer = newContainers.find((c) =>
-        c.elements.includes(draggedItem)
+        c.data.includes(draggedItem)
       )
       const droppedContainer = newContainers.find(
-        (c) => c.id === dragOverContainer
+        (c) => c._id === dragOverContainer
       )
 
-      draggedContainer.elements = draggedContainer.elements.filter(
+      draggedContainer.data = draggedContainer.data.filter(
         (item) => item !== draggedItem
       )
-      droppedContainer.elements.push(draggedItem)
+      droppedContainer.data.push(draggedItem)
+
+      console.log(newContainers, 'newContainers')
 
       setContainers(newContainers)
       setDraggedItem(null)
@@ -36,26 +39,27 @@ export const DragAndDrop = ({ containers, setContainers }) => {
   }
   return (
     <div className='dnd-container'>
-      {containers.map((container) => (
-        <div
-          className='items-container'
-          key={container.id}
-          onDrop={handleDrop}
-          onDragOver={(event) => handleDragOver(event, container.id)}
-        >
-          <h2>{container.id}</h2>
-          {container.elements.map((item) => (
-            <div
-              className='item'
-              key={item}
-              draggable
-              onDragStart={(event) => handleDragStart(event, item)}
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      ))}
+      {containers &&
+        containers?.map((container) => (
+          <div
+            className='items-container'
+            key={container._id}
+            onDrop={handleDrop}
+            onDragOver={(event) => handleDragOver(event, container._id)}
+          >
+            <h2>{container.title}</h2>
+            {container?.data.map((item) => (
+              <div
+                className='item'
+                key={item.id}
+                draggable
+                onDragStart={(event) => handleDragStart(event, item)}
+              >
+                {item.task}
+              </div>
+            ))}
+          </div>
+        ))}
     </div>
   )
 }

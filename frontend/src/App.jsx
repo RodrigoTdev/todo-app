@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DragAndDrop } from './components/DragAndDrop'
 
 const App = () => {
-  const [containers, setContainers] = useState([
-    { id: 'TODO', elements: ['item1', 'item2', 'item3'] },
-    { id: 'IN PROGRESS', elements: [] },
-    { id: 'DONE', elements: [] },
-  ])
+  const [containers, setContainers] = useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:1234/api/data')
+      .then((response) => response.json())
+      .then((data) => {
+        setContainers(data)
+        console.log(data, 'data')
+      })
+  }, [])
 
   console.log(containers, 'containers')
 
