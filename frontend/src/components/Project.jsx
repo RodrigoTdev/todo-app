@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 
-export const Project = () => {
+export const Project = ({ data }) => {
   const [draggedItem, setDraggedItem] = useState(null)
   const [dragOverContainer, setDragOverContainer] = useState(null)
+  const [containers, setContainers] = useState(data)
+
+  // console.log(containers, 'containers')
 
   const handleDragStart = (event, item) => {
     // event.preventDefault()
@@ -21,13 +24,23 @@ export const Project = () => {
         c.data.includes(draggedItem)
       )
       const droppedContainer = newContainers.find(
-        (c) => c._id === dragOverContainer
+        (c) => c.id === dragOverContainer
       )
 
       draggedContainer.data = draggedContainer.data.filter(
         (item) => item !== draggedItem
       )
       droppedContainer.data.push(draggedItem)
+
+      // Update item IDs within each container
+      newContainers.forEach((container) => {
+        container.data = container.data.map((item, index) => {
+          return {
+            ...item,
+            id: index,
+          }
+        })
+      })
 
       console.log(newContainers, 'newContainers')
 
@@ -36,29 +49,33 @@ export const Project = () => {
       setDragOverContainer(null)
     }
   }
+
   return (
     <div className='dnd-container'>
-      {/* {containers &&
+      {containers &&
         containers?.map((container) => (
           <div
             className='items-container'
-            key={container._id}
+            key={container.title}
             onDrop={handleDrop}
-            onDragOver={(event) => handleDragOver(event, container._id)}
+            onDragOver={(event) => handleDragOver(event, container.id)}
           >
             <h2>{container.title}</h2>
             {container?.data.map((item) => (
               <div
                 className='item'
-                key={item.id}
+                key={item.task}
                 draggable
                 onDragStart={(event) => handleDragStart(event, item)}
               >
                 {item.task}
               </div>
             ))}
+            {container.title === 'TODO' && (
+              <button className='add-item'>+</button>
+            )}
           </div>
-        ))} */}
+        ))}
     </div>
   )
 }

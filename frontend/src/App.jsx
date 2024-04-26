@@ -4,13 +4,14 @@ import { ProjectList } from './components/ProjectList'
 
 const App = () => {
   const [dataDB, setDataDB] = useState([])
-  const [currentProject, setCurrentProject] = useState(dataDB[0])
+  const [currentProject, setCurrentProject] = useState()
   // console.log(dataDB, 'dataDB')
   useEffect(() => {
     fetch('http://localhost:3012/api/data')
       .then((response) => response.json())
       .then((data) => {
         setDataDB(data)
+        setCurrentProject(data[0])
         // console.log(data, 'data')
       })
   }, [])
@@ -21,7 +22,7 @@ const App = () => {
         dataDB={dataDB}
         setDataDB={setDataDB}
       />
-      <Project currentProject={currentProject} />
+      {currentProject && <Project data={currentProject.data} />}
     </div>
   )
 }
