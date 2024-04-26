@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 
-export const DragAndDrop = ({ containers, setContainers }) => {
+export const Project = () => {
   const [draggedItem, setDraggedItem] = useState(null)
   const [dragOverContainer, setDragOverContainer] = useState(null)
-  console.log('containers', containers)
 
   const handleDragStart = (event, item) => {
     // event.preventDefault()
@@ -39,7 +38,7 @@ export const DragAndDrop = ({ containers, setContainers }) => {
   }
   return (
     <div className='dnd-container'>
-      {containers &&
+      {/* {containers &&
         containers?.map((container) => (
           <div
             className='items-container'
@@ -59,7 +58,7 @@ export const DragAndDrop = ({ containers, setContainers }) => {
               </div>
             ))}
           </div>
-        ))}
+        ))} */}
     </div>
   )
 }

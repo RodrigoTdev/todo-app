@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { DragAndDrop } from './components/DragAndDrop'
+import { Project } from './components/Project'
+import { ProjectList } from './components/ProjectList'
 
 const App = () => {
-  const [containers, setContainers] = useState([])
-
+  const [dataDB, setDataDB] = useState([])
+  const [currentProject, setCurrentProject] = useState(dataDB[0])
+  // console.log(dataDB, 'dataDB')
   useEffect(() => {
     fetch('http://localhost:3012/api/data')
       .then((response) => response.json())
       .then((data) => {
-        setContainers(data)
-        console.log(data, 'data')
+        setDataDB(data)
+        // console.log(data, 'data')
       })
   }, [])
 
-  console.log(containers, 'containers')
-
   return (
     <div className='app'>
-      <h1>TODO APP</h1>
-      <DragAndDrop
-        containers={containers}
-        setContainers={setContainers}
+      <ProjectList
+        dataDB={dataDB}
+        setDataDB={setDataDB}
       />
+      <Project currentProject={currentProject} />
     </div>
   )
 }
