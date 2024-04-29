@@ -35,13 +35,20 @@ body {
   margin: 0;
 }
 
+/* Shared styles */
+
+.project-list,
+.dnd-container {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
 /* App */
 .app {
   display: flex;
-  width: 100dvw;
-  height: 100dvh;
+  min-width: 100dvw;
+  min-height: 100dvh;
   justify-content: center;
-  align-items: center;
 }
 
 /* Aside */
@@ -49,7 +56,6 @@ body {
   display: flex;
   flex-direction: column;
   width: 17%;
-  height: 90%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -84,6 +90,7 @@ body {
 
 .item {
   cursor: grab;
+  font-family: sans-serif;
 }
 
 .project-list ul li:hover {
@@ -93,6 +100,13 @@ body {
 
 .project-list ul li {
   font-weight: 600;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#new-project-modal {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
 }
 
 /* DnD container - Main content */
@@ -101,7 +115,6 @@ body {
   display: flex;
   justify-content: center;
   /* width: 80%; */
-  height: 90%;
   gap: 30px;
   margin-left: 30px;
 }
@@ -120,6 +133,7 @@ body {
 .items-container h2,
 .project-list h2 {
   height: 35px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .items-container h2 {
@@ -156,6 +170,30 @@ body {
   border: none;
   opacity: 0.6;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+}
+
+#add-task-modal {
+  display: flex;
+  width: 91%;
+  justify-content: center;
+  gap: 5px;
+}
+
+#add-task-form {
+  display: flex;
+  justify-content: space-around;
+  width: 92%;
+  gap: 5px;
+}
+
+#add-task-form input[type='text'] {
+  width: 82%;
+}
+
+#add-task-modal button {
+  width: 9%;
+  padding: 5px;
 }
 
 .add-project {
@@ -171,6 +209,7 @@ body {
   border: none;
   opacity: 0.6;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
 }
 
 .add-item:hover,

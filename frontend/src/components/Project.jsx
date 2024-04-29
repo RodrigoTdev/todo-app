@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export const Project = ({ data }) => {
+export const Project = ({ data, currentProject }) => {
   const [draggedItem, setDraggedItem] = useState(null)
   const [dragOverContainer, setDragOverContainer] = useState(null)
-  const [containers, setContainers] = useState(data)
+  const [containers, setContainers] = useState()
+  const [addMode, setAddMode] = useState(false)
 
-  // console.log(containers, 'containers')
+  useEffect(() => {
+    setContainers(data)
+  }, [data])
 
   const handleDragStart = (event, item) => {
     // event.preventDefault()
@@ -42,12 +45,20 @@ export const Project = ({ data }) => {
         })
       })
 
-      console.log(newContainers, 'newContainers')
-
       setContainers(newContainers)
       setDraggedItem(null)
       setDragOverContainer(null)
     }
+  }
+
+  const handleSubmitAddTask = () => {
+    console.log('add task')
+    console.log(containers[0].data, 'containers')
+    const newTodoData = containers[0].data.concat({
+      id: containers[0].data.length,
+      task: 'New Task',
+    })
+    console.log(newTodoData)
   }
 
   return (
@@ -73,8 +84,32 @@ export const Project = ({ data }) => {
                 {item.task}
               </div>
             ))}
-            {container.title === 'TODO' && (
-              <button className='add-item'>+</button>
+            {container.title === 'TODO' && !addMode && (
+              <button
+                onClick={() => setAddMode(true)}
+                className='add-item'
+              >
+                +
+              </button>
+            )}
+            {container.title === 'TODO' && addMode && (
+              <div id='add-task-modal'>
+                <form
+                  id='add-task-form'
+                  onSubmit={handleSubmitAddTask}
+                >
+                  <input
+                    type='text'
+                    placeholder='Add task'
+                  />
+                  <input
+                    type='submit'
+                    value='Save'
+                    id='add-task-submit'
+                  />
+                </form>
+                <button onClick={() => setAddMode(false)}>x</button>
+              </div>
             )}
           </div>
         ))}

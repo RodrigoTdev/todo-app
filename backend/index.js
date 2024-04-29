@@ -35,11 +35,34 @@ app.get('/api/data', async (req, res) => {
   }
 })
 
+// Create a new project
 app.post('/api/data', async (req, res) => {
-  const { title, data } = req.body
+  const { title } = req.body
 
-  const newData = new DataModel({ title, data })
-  console.log(newData)
+  const newTitle = title
+
+  const data = {
+    title: newTitle,
+    data: [
+      {
+        id: 0,
+        title: 'TODO',
+        data: [],
+      },
+      {
+        id: 1,
+        title: 'IN PROGRESS',
+        data: [],
+      },
+      {
+        id: 2,
+        title: 'DONE',
+        data: [],
+      },
+    ],
+  }
+
+  const newData = new DataModel(data)
   try {
     const savedData = await newData.save()
     res.json(savedData)
