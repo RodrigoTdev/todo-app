@@ -1,4 +1,4 @@
-# React + Vite
+# Todo App
 
 TODO:
 
