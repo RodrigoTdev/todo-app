@@ -8,8 +8,8 @@ TODO:
 
 ## Funtionalities
 
-- [] Add project
-- [] Change project to render
-- [] Add task
-- [] Change projects order
-- [] Change task order
+- [ ] Add project
+- [ ] Change project to render
+- [ ] Add task
+- [ ] Change projects order
+- [ ] Change task order
