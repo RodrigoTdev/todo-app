@@ -7,6 +7,7 @@ export const ProjectList = ({ dataDB, setDataDB }) => {
       <ul>
         {dataDB &&
           dataDB.map((project) => <li key={project._id}>{project.title}</li>)}
+        <button className='add-project'>+</button>
       </ul>
     </aside>
   )

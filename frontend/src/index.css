@@ -21,13 +21,11 @@ body,
 
 .project-list h2,
 .dnd-container h2 {
-  background-color: var(--title-background-color);
-  color: var(--title-color);
+  background-color: black;
 }
 
 .item,
 .project-list ul li {
-  /* background-color: var(--item-color); */
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
   color: var(--item-color);
 }
@@ -60,6 +58,7 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0;
+  color: #7cdaf9;
 }
 
 .project-list ul {
@@ -83,18 +82,28 @@ body {
   width: 88%;
 }
 
-.project-list ul li:hover,
-.item:hover {
-  background-color: #c4c1c1;
+.item {
+  cursor: grab;
+}
+
+.project-list ul li:hover {
+  background-color: #7cdaf9;
   color: black;
 }
+
+.project-list ul li {
+  font-weight: 600;
+}
+
+/* DnD container - Main content */
 
 .dnd-container {
   display: flex;
   justify-content: center;
-  width: 80%;
+  /* width: 80%; */
   height: 90%;
   gap: 30px;
+  margin-left: 30px;
 }
 
 .items-container {
@@ -102,9 +111,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 300px;
+  width: 320px;
   gap: 5px;
   user-select: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 .items-container h2,
@@ -121,25 +131,74 @@ body {
   margin-bottom: 5px;
 }
 
+#TODO {
+  color: #ef673d;
+}
+
+#IN-PROGRESS {
+  color: #fefda2;
+}
+
+#DONE {
+  color: #66cc67;
+}
+
 .add-item {
   display: flex;
   align-items: center;
   justify-content: center;
   align-items: center;
-  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); */
-  height: 4%;
-  font-size: 18px;
+  font-size: 16.5px;
+  padding: 5px 0px 5px 10px;
   cursor: pointer;
-  width: 93%;
+  width: 91.5%;
+  background-color: var(--container-color);
   border: none;
-  margin-top: auto;
-  margin-bottom: 10px;
+  opacity: 0.6;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
 }
 
-.add-item:hover {
+.add-project {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 16.5px;
+  padding: 5px 0px 5px 10px;
+  cursor: pointer;
+  width: 91.1%;
+  background-color: var(--container-color);
+  border: none;
+  opacity: 0.6;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
+}
+
+.add-item:hover,
+.add-project:hover {
   background-color: #3b3b3b;
   transition: 0.2s;
   color: white;
   border: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.item-TODO:hover {
+  background-color: #ef673d;
+  border: none;
+}
+
+.item-IN-PROGRESS:hover {
+  background-color: #fefda2;
+  border: none;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.item-DONE:hover {
+  background-color: #66cc67;
+  border: none;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 1282px) {
+  /* De 1282px para abajo se rompen los estilos */
 }

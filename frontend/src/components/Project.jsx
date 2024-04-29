@@ -60,10 +60,12 @@ export const Project = ({ data }) => {
             onDrop={handleDrop}
             onDragOver={(event) => handleDragOver(event, container.id)}
           >
-            <h2>{container.title}</h2>
+            <h2 id={`${container.title.replace(' ', '-')}`}>
+              {container.title}
+            </h2>
             {container?.data.map((item) => (
               <div
-                className='item'
+                className={`item item-${container.title.replace(' ', '-')}`}
                 key={item.task}
                 draggable
                 onDragStart={(event) => handleDragStart(event, item)}
