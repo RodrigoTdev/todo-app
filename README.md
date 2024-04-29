@@ -6,7 +6,7 @@ TODO:
 - [✔️] Finish basic backend
 - [✔️] Show First Proyect by Default
 
-##Funtionalities
+## Funtionalities
 
 - [] Add project
 - [] Change project to render
