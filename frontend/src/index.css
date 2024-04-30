@@ -241,6 +241,36 @@ body {
   border: none;
 }
 
+/* Edit mode project list */
+.edit-project-list {
+  display: flex;
+  background: none;
+  border: none;
+  margin-top: auto;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.edit-project-list:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  color: red;
+}
+
+.delete-project {
+  display: flex;
+  background: none;
+  border: none;
+  margin-left: auto;
+}
+
+.delete-project:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  color: white;
+  scale: 1.2;
+}
+
 /* Responsive */
 
 @media screen and (max-width: 1282px) {

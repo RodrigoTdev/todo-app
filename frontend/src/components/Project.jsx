@@ -19,9 +19,8 @@ export const Project = ({ data, currentProject, reRender, setReRender }) => {
     event.preventDefault()
     setDragOverContainer(container)
   }
-
   const handleDrop = () => {
-    if (draggedItem && dragOverContainer) {
+    if (draggedItem && dragOverContainer >= 0) {
       const newContainers = [...containers]
       const draggedContainer = newContainers.find((c) =>
         c.data.includes(draggedItem)
@@ -29,12 +28,13 @@ export const Project = ({ data, currentProject, reRender, setReRender }) => {
       const droppedContainer = newContainers.find(
         (c) => c.id === dragOverContainer
       )
+      console.log(draggedContainer, 'draggedContainer')
+      console.log(droppedContainer, 'droppedContainer')
 
       draggedContainer.data = draggedContainer.data.filter(
         (item) => item !== draggedItem
       )
       droppedContainer.data.push(draggedItem)
-
       // Update item IDs within each container
       newContainers.forEach((container) => {
         container.data = container.data.map((item, index) => {
@@ -44,10 +44,24 @@ export const Project = ({ data, currentProject, reRender, setReRender }) => {
           }
         })
       })
-
       setContainers(newContainers)
       setDraggedItem(null)
       setDragOverContainer(null)
+
+      // Send updated data to server
+      const newData = {
+        _id: data._id,
+        title: data.title,
+        data: newContainers,
+        date: data.date,
+        __v: 0,
+        id: data.id,
+      }
+      fetch('http://localhost:3012/api/tasks', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newData),
+      })
     }
   }
 

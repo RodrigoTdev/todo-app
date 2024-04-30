@@ -23,13 +23,13 @@ const dataSchema = new Schema({
   title: { type: String, required: true },
   data: { type: Array, required: true },
   date: { type: String, default: new Date().toLocaleString() },
-  id: { type: Number, required: true },
+  idMio: { type: Number, required: true },
 })
 const DataModel = mongoose.model('DataModel', dataSchema, 'data')
 
 app.get('/api/data', async (req, res) => {
   try {
-    const allData = await DataModel.find().sort({ id: 1 })
+    const allData = await DataModel.find().sort({ idMio: 1 })
     res.json(allData)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -38,7 +38,7 @@ app.get('/api/data', async (req, res) => {
 
 // Create a new project
 app.post('/api/data', async (req, res) => {
-  const { title, id } = req.body
+  const { title, idMio } = req.body
 
   const newTitle = title
 
@@ -61,7 +61,7 @@ app.post('/api/data', async (req, res) => {
         data: [],
       },
     ],
-    id: id,
+    idMio: idMio,
   }
 
   const newData = new DataModel(data)
@@ -75,6 +75,18 @@ app.post('/api/data', async (req, res) => {
 
 app.patch('/api/projects', async (req, res) => {
   // TODO: Editar lista de proyectos
+})
+
+app.delete('/api/projects', async (req, res) => {
+  // TODO: Eliminar proyecto
+  const { _id } = req.body
+
+  try {
+    const deletedData = await DataModel.deleteOne({ _id })
+    res.json(deletedData)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 })
 
 app.put('/api/tasks', async (req, res) => {
@@ -92,6 +104,15 @@ app.put('/api/tasks', async (req, res) => {
 
 app.patch('/api/tasks', async (req, res) => {
   // TODO: Editar lista de tareas
+  const { _id, title, data, date, __v } = req.body
+  const newData = { _id, title, data, date, __v }
+
+  try {
+    const savedData = await DataModel.updateOne({ _id }, newData)
+    res.status(200).json(savedData)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
 })
 
 app.listen(process.env.PORT, () => {
