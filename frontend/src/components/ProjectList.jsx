@@ -13,7 +13,7 @@ export const ProjectList = ({
     fetch('http://localhost:3012/api/data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: e.target[0].value }),
+      body: JSON.stringify({ title: e.target[0].value, id: dataDB.length }),
     })
     setAddMode(false)
     setReRender(!reRender)
@@ -54,7 +54,6 @@ export const ProjectList = ({
                 id='title-input'
                 type='text'
                 placeholder='Project title'
-                defaultValue='Test Project Added'
               />
               <input
                 type='submit'

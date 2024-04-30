@@ -29,7 +29,9 @@ const App = () => {
       {currentProject && (
         <Project
           currentProject={currentProject}
-          data={currentProject.data}
+          data={currentProject}
+          reRender={reRender}
+          setReRender={setReRender}
         />
       )}
     </div>

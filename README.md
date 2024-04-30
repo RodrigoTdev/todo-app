@@ -8,8 +8,9 @@ TODO:
 
 ## Funtionalities
 
-- [❔] Add project
-- [❔] Change project to render
-- [❔] Add task
+- [✔️] Add project
+- [✔️] Change project to render
+- [✔️] Add task
 - [❔] Change projects order
 - [❔] Change task order
+- [❔] Edit mode

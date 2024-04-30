@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
-export const Project = ({ data, currentProject }) => {
+export const Project = ({ data, currentProject, reRender, setReRender }) => {
   const [draggedItem, setDraggedItem] = useState(null)
   const [dragOverContainer, setDragOverContainer] = useState(null)
   const [containers, setContainers] = useState()
   const [addMode, setAddMode] = useState(false)
 
   useEffect(() => {
-    setContainers(data)
-  }, [data])
+    setContainers(currentProject.data)
+  }, [currentProject.data])
 
   const handleDragStart = (event, item) => {
     // event.preventDefault()
@@ -51,14 +51,29 @@ export const Project = ({ data, currentProject }) => {
     }
   }
 
-  const handleSubmitAddTask = () => {
-    console.log('add task')
-    console.log(containers[0].data, 'containers')
+  const handleSubmitAddTask = (e) => {
+    e.preventDefault()
     const newTodoData = containers[0].data.concat({
       id: containers[0].data.length,
-      task: 'New Task',
+      task: e.target[0].value,
     })
-    console.log(newTodoData)
+    const newContainers = [...containers]
+    newContainers[0].data = newTodoData
+    const newData = {
+      _id: data._id,
+      title: data.title,
+      data: newContainers,
+      date: data.date,
+      __v: 0,
+      id: data.id,
+    }
+    fetch('http://localhost:3012/api/tasks', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newData),
+    })
+    setReRender(!reRender)
+    setAddMode(false)
   }
 
   return (
