@@ -118,13 +118,11 @@ app.patch('/api/tasks', async (req, res) => {
 app.patch('/api/tasks/delete', async (req, res) => {
   // TODO: Eliminar tarea
   const newData = req.body
-  console.log(newData._id, 'newData._id')
   try {
     const updateData = await DataModel.findOneAndUpdate(
       { _id: newData._id },
       newData
     )
-    console.log(updateData, 'updateData')
     res.json(updateData)
   } catch (error) {
     res.status(500).json({ message: error.message })

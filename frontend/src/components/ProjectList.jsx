@@ -42,7 +42,7 @@ export const ProjectList = ({
       <h2>PROYECTS</h2>
       <ul>
         {dataDB &&
-          dataDB.map((project) => (
+          dataDB.map((project, index) => (
             <li
               onClick={() => handleClickProject(project)}
               key={project._id}
