@@ -29,7 +29,8 @@ const DataModel = mongoose.model('DataModel', dataSchema, 'data')
 
 app.get('/api/data', async (req, res) => {
   try {
-    const allData = await DataModel.find().sort({ idMio: 1 })
+    // const allData = await DataModel.find().sort({ idMio: 1 })
+    const allData = await DataModel.find()
     res.json(allData)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -68,6 +69,25 @@ app.post('/api/data', async (req, res) => {
   try {
     const savedData = await newData.save()
     res.json(savedData)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
+// Re order project list
+app.post('/api/projects', async (req, res) => {
+  const newDocuments = req.body
+  // const newDataWithOut_id = data.map((project) => {
+  //   delete project._id
+  //   return project
+  // })
+  // console.log(data)
+  // console.log(newDataWithOut_id)
+
+  try {
+    await DataModel.deleteMany({})
+    const nuevosDocumentosInsertados = await DataModel.insertMany(newDocuments)
+    res.json(nuevosDocumentosInsertados)
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

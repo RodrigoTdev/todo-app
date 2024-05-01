@@ -148,7 +148,7 @@ export const Project = ({
             {container?.data.map((item) => (
               <div
                 className={`item item-${container.title.replace(' ', '-')}`}
-                key={item.task}
+                key={item.task + item.id}
                 draggable
                 onDragStart={(event) => handleDragStart(event, item)}
               >

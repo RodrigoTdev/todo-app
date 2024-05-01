@@ -9,6 +9,9 @@ export const ProjectList = ({
 }) => {
   const [addMode, setAddMode] = useState(false)
   const [editMode, setEditMode] = useState(false)
+  const [draggedItem, setDraggedItem] = useState(null)
+  const [items, setItems] = useState()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     fetch('http://localhost:3012/api/data', {
@@ -37,6 +40,39 @@ export const ProjectList = ({
     setEditMode(false)
   }
 
+  // Drag and Drop
+  const handleDragStart = (e, index) => {
+    setDraggedItem(dataDB[index])
+    e.dataTransfer.effectAllowed = 'move'
+    e.dataTransfer.setData('text/plain', index)
+  }
+
+  const handleDragOver = (index) => {
+    const draggedOverItem = dataDB[index]
+
+    if (draggedItem === draggedOverItem) return
+
+    const itemsCopy = [...dataDB]
+    const draggedItemIndex = itemsCopy.indexOf(draggedItem)
+    itemsCopy.splice(draggedItemIndex, 1)
+    itemsCopy.splice(index, 0, draggedItem)
+    setItems(itemsCopy)
+
+    // setDataDB(itemsCopy)
+  }
+
+  const handleDragEnd = () => {
+    setDraggedItem(null)
+
+    console.log(dataDB, 'dataDB')
+    console.log(items, 'items')
+    fetch('http://localhost:3012/api/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(items),
+    }).then(() => setReRender(!reRender))
+  }
+
   return (
     <aside className='project-list'>
       <h2>PROYECTS</h2>
@@ -46,6 +82,10 @@ export const ProjectList = ({
             <li
               onClick={() => handleClickProject(project)}
               key={project._id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragOver={() => handleDragOver(index)}
+              onDragEnd={handleDragEnd}
             >
               {project.title}
               {editMode && (
