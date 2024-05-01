@@ -254,21 +254,40 @@ body {
 .edit-project-list:hover {
   cursor: pointer;
   opacity: 0.7;
-  color: red;
 }
 
-.delete-project {
+.delete-project,
+.delete-task {
   display: flex;
   background: none;
   border: none;
   margin-left: auto;
 }
 
-.delete-project:hover {
+.delete-project:hover,
+.delete-task:hover {
   cursor: pointer;
   opacity: 0.7;
   color: white;
   scale: 1.2;
+}
+
+/* Edit mode tasks */
+
+.edit-mode-tasks {
+  display: flex;
+  background: none;
+  border: none;
+  margin-top: auto;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: auto;
+}
+
+.edit-mode-tasks:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  scale: 1.1;
 }
 
 /* Responsive */

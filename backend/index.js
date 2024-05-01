@@ -103,13 +103,29 @@ app.put('/api/tasks', async (req, res) => {
 })
 
 app.patch('/api/tasks', async (req, res) => {
-  // TODO: Editar lista de tareas
+  // TODO: Editar lista de tareas DnD
   const { _id, title, data, date, __v } = req.body
   const newData = { _id, title, data, date, __v }
 
   try {
     const savedData = await DataModel.updateOne({ _id }, newData)
     res.status(200).json(savedData)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
+app.patch('/api/tasks/delete', async (req, res) => {
+  // TODO: Eliminar tarea
+  const newData = req.body
+  console.log(newData._id, 'newData._id')
+  try {
+    const updateData = await DataModel.findOneAndUpdate(
+      { _id: newData._id },
+      newData
+    )
+    console.log(updateData, 'updateData')
+    res.json(updateData)
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

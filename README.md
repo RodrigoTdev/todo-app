@@ -12,7 +12,7 @@ TODO:
 - [✔️] Change project to render
 - [✔️] Add task
 - [✔️] Delete proyect
-- [❔] Delete task
+- [✔️] Delete task
 - [❔] Change projects order
 - [❔] Change task order
 - [❔] Edit mode

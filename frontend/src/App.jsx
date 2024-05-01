@@ -30,6 +30,7 @@ const App = () => {
         <Project
           currentProject={currentProject}
           data={currentProject}
+          setCurrentProject={setCurrentProject}
           reRender={reRender}
           setReRender={setReRender}
         />
