@@ -36,8 +36,6 @@ export const Project = ({
       const droppedContainer = newContainers.find(
         (c) => c.id === dragOverContainer
       )
-      console.log(draggedContainer, 'draggedContainer')
-      console.log(droppedContainer, 'droppedContainer')
 
       draggedContainer.data = draggedContainer.data.filter(
         (item) => item !== draggedItem

@@ -26,11 +26,9 @@ export const ProjectList = ({
 
   const handleClickProject = (project) => {
     setCurrentProject(project)
-    // console.log(project)
   }
 
   const handleClickDeleteProject = (event, id) => {
-    console.log(id)
     event.preventDefault()
     fetch(`http://localhost:3012/api/projects`, {
       method: 'DELETE',
@@ -65,8 +63,6 @@ export const ProjectList = ({
   const handleDragEnd = () => {
     setDraggedItem(null)
 
-    console.log(dataDB, 'dataDB')
-    console.log(items, 'items')
     fetch('http://localhost:3012/api/projects', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -74,11 +70,36 @@ export const ProjectList = ({
     }).then(() => setReRender(!reRender))
   }
 
+  const handleSubmitEditedProjectList = (e) => {
+    e.preventDefault()
+    // filter only text inputs
+    const inputs = Object.values(e.target).filter((item) => {
+      if (item.type === 'text') {
+        return item
+      }
+    })
+    const inputsValues = inputs.map((item) => item.value)
+
+    const newDataDB = dataDB.map((project, index) => {
+      return {
+        ...project,
+        title: inputsValues[index],
+      }
+    })
+    fetch('http://localhost:3012/api/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newDataDB),
+    }).then(() => setReRender(!reRender))
+    setEditMode(false)
+  }
+
   return (
     <aside className='project-list'>
       <h2>PROYECTS</h2>
       <ul>
         {dataDB &&
+          !editMode &&
           dataDB.map((project, index) => (
             <li
               onClick={() => handleClickProject(project)}
@@ -109,14 +130,35 @@ export const ProjectList = ({
               )}
             </li>
           ))}
-        {!addMode ? (
+        {editMode && (
+          <form
+            className='form-edit-project-list'
+            onSubmit={handleSubmitEditedProjectList}
+          >
+            {dataDB.map((project) => (
+              <input
+                className='edit-project-title'
+                type='text'
+                defaultValue={project.title}
+                key={project._id}
+              />
+            ))}
+            <input
+              className='save-project-titles'
+              type='submit'
+              value='Save'
+            />
+          </form>
+        )}
+        {!addMode && !editMode && (
           <button
             onClick={() => setAddMode(true)}
             className='add-project'
           >
             +
           </button>
-        ) : (
+        )}
+        {!editMode && addMode && (
           <div id='new-project-modal'>
             <form
               id='new-project-form'
@@ -143,7 +185,10 @@ export const ProjectList = ({
         )}
       </ul>
       <div className='footer-buttons'>
-        <button className='edit-mode-projets'>
+        <button
+          className='edit-mode-projets'
+          onClick={() => setEditMode(!editMode)}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             width='22'

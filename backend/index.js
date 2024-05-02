@@ -77,12 +77,6 @@ app.post('/api/data', async (req, res) => {
 // Re order project list
 app.post('/api/projects', async (req, res) => {
   const newDocuments = req.body
-  // const newDataWithOut_id = data.map((project) => {
-  //   delete project._id
-  //   return project
-  // })
-  // console.log(data)
-  // console.log(newDataWithOut_id)
 
   try {
     await DataModel.deleteMany({})

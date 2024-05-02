@@ -13,6 +13,6 @@ TODO:
 - [✔️] Add task
 - [✔️] Delete proyect
 - [✔️] Delete task
-- [❔] Change projects order
+- [✔️] Change projects order
 - [❔] Change task order
 - [❔] Edit mode
