@@ -241,17 +241,27 @@ body {
   border: none;
 }
 
-/* Edit mode project list */
-.edit-project-list {
+/* Footer buttons */
+.footer-buttons,
+.footer-tasks-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Delete mode project list */
+.delete-mode-projects {
   display: flex;
   background: none;
   border: none;
-  margin-top: auto;
-  margin-bottom: 5px;
-  margin-left: 5px;
+  margin-bottom: 3px;
+  margin-right: 3px;
 }
 
-.edit-project-list:hover {
+.delete-mode-projects:hover,
+.edit-mode-projets:hover {
   cursor: pointer;
   opacity: 0.7;
 }
@@ -261,6 +271,7 @@ body {
   display: flex;
   background: none;
   border: none;
+  margin: 0;
   margin-left: auto;
 }
 
@@ -272,22 +283,31 @@ body {
   scale: 1.2;
 }
 
-/* Edit mode tasks */
+/* Delete mode tasks */
 
-.edit-mode-tasks {
+.delete-mode-tasks {
   display: flex;
   background: none;
   border: none;
   margin-top: auto;
   margin-bottom: 5px;
-  margin-left: 5px;
-  margin-right: auto;
+  margin-left: auto;
+  margin-right: 5px;
 }
 
-.edit-mode-tasks:hover {
+.delete-mode-tasks:hover {
   cursor: pointer;
   opacity: 0.7;
   scale: 1.1;
+}
+
+/* Edit mode projects */
+.edit-mode-projets,
+.edit-mode-tasks {
+  display: flex;
+  background: none;
+  border: none;
+  margin-bottom: 2px;
 }
 
 /* Responsive */
