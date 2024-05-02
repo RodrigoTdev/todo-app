@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Project } from './components/Project'
-import { ProjectList } from './components/ProjectList'
+import { Tasks } from './components/tasks/Tasks'
+import { ProjectList } from './components/projectList/ProjectList'
 
 const App = () => {
   const [dataDB, setDataDB] = useState([])
@@ -27,7 +27,7 @@ const App = () => {
         setCurrentProject={setCurrentProject}
       />
       {currentProject && (
-        <Project
+        <Tasks
           currentProject={currentProject}
           data={currentProject}
           setCurrentProject={setCurrentProject}
