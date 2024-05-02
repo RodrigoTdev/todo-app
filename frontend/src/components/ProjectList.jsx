@@ -37,6 +37,7 @@ export const ProjectList = ({
     })
     setReRender(!reRender)
     setDeleteMode(false)
+    window.location.reload()
   }
 
   // Drag and Drop
