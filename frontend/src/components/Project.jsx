@@ -130,6 +130,51 @@ export const Project = ({
     // setReRender(!reRender)
   }
 
+  const handleClickTasksChanges = (event, container) => {
+    event.preventDefault()
+
+    // filter only text inputs
+    const inputs = Object.values(event.target).filter((item) => {
+      if (item.type === 'text') {
+        return item
+      }
+    })
+    const inputsValues = inputs.map((item) => item.value)
+    const newContainerData = container.data.map((item, index) => {
+      return { ...item, task: inputsValues[index] }
+    })
+    const newContainer = {
+      ...container,
+      data: newContainerData,
+    }
+    const newDataTasks = data.data.map((container) => {
+      if (container.id === newContainer.id) {
+        return newContainer
+      } else {
+        return container
+      }
+    })
+
+    const newData = {
+      _id: data._id,
+      title: data.title,
+      data: newDataTasks,
+      date: data.date,
+      idMio: data.idMio,
+      __v: 0,
+    }
+
+    if (event.target[0].value.length > 0) {
+      fetch('http://localhost:3012/api/tasks', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newData),
+      })
+    }
+    setCurrentProject(newData)
+    setEditMode(false)
+  }
+
   return (
     <div className='dnd-container'>
       {containers &&
@@ -143,37 +188,58 @@ export const Project = ({
             <h2 id={`${container.title.replace(' ', '-')}`}>
               {container.title}
             </h2>
-            {container?.data.map((item) => (
-              <div
-                className={`item item-${container.title.replace(' ', '-')}`}
-                key={item.task + item.id}
-                draggable
-                onDragStart={(event) => handleDragStart(event, item)}
-              >
-                {item.task}
-                {deleteMode && (
-                  <button
-                    onClick={() =>
-                      handleClickDeleteTask(event, item.id, container)
-                    }
-                    className='delete-task'
-                  >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
+            {!editMode &&
+              container?.data.map((item) => (
+                <div
+                  className={`item item-${container.title.replace(' ', '-')}`}
+                  key={item.task + item.id}
+                  draggable
+                  onDragStart={(event) => handleDragStart(event, item)}
+                >
+                  {item.task}
+                  {deleteMode && (
+                    <button
+                      onClick={() =>
+                        handleClickDeleteTask(event, item.id, container)
+                      }
+                      className='delete-task'
                     >
-                      <path
-                        fill='#dc2626'
-                        d='m8.746 8l3.1-3.1a.527.527 0 1 0-.746-.746L8 7.254l-3.1-3.1a.527.527 0 1 0-.746.746l3.1 3.1l-3.1 3.1a.527.527 0 1 0 .746.746l3.1-3.1l3.1 3.1a.527.527 0 1 0 .746-.746zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16'
-                      />
-                    </svg>
-                  </button>
-                )}
-              </div>
-            ))}
-            {container.title === 'TODO' && !addMode && (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='16'
+                        height='16'
+                        viewBox='0 0 16 16'
+                      >
+                        <path
+                          fill='#dc2626'
+                          d='m8.746 8l3.1-3.1a.527.527 0 1 0-.746-.746L8 7.254l-3.1-3.1a.527.527 0 1 0-.746.746l3.1 3.1l-3.1 3.1a.527.527 0 1 0 .746.746l3.1-3.1l3.1 3.1a.527.527 0 1 0 .746-.746zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16'
+                        />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              ))}
+            {editMode && (
+              <form
+                className='edit-mode-form-tasks'
+                onSubmit={() => handleClickTasksChanges(event, container)}
+              >
+                {container?.data.map((item) => (
+                  <input
+                    className='edit-mode-tasks-input'
+                    key={item.task + item.id}
+                    type='text'
+                    defaultValue={item.task}
+                  />
+                ))}
+                <input
+                  className='save-tasks-changes'
+                  type='submit'
+                  value='Save'
+                />
+              </form>
+            )}
+            {container.title === 'TODO' && !addMode && !editMode && (
               <button
                 onClick={() => setAddMode(true)}
                 className='add-item'
@@ -201,7 +267,10 @@ export const Project = ({
               </div>
             )}
             <div className='footer-tasks-buttons'>
-              <button className='edit-mode-tasks'>
+              <button
+                className='edit-mode-tasks'
+                onClick={() => setEditMode(!editMode)}
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='22'
