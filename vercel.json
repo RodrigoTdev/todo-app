@@ -1,7 +1,6 @@
 {
   "routes": [
     {
-      "handle": "hit",
       "src": "/api/(.*)",
       "dest": "index.js"
     },
